@@ -8,6 +8,8 @@
 # divide all the amounts from pantry with recipe to calculate ratios
 # and return the lowest number 
 
+# HOW TO IMPROVE THE CODE / WHAT TO DO NEXT
+
 class CalculateBaking
   def initialize(recipe, pantry)
     @recipe = recipe
@@ -25,7 +27,6 @@ class CalculateBaking
   end
   
   def have_necessary_amounts?
-    # if key is same compare value >= v
     count = 0
     @pantry.each_pair do |key, value|
       @recipe.each_pair do |ingredient, amount|
@@ -39,15 +40,33 @@ class CalculateBaking
   end
 
   def number_of_cakes
-    # "You are missing some ingredients" unless have_all_ingredients?
-    # "You don't have enough from some of the ingredients" unless have_necessary_amounts?
+    "You are missing some ingredients" unless have_all_ingredients? && have_necessary_amounts?
+
+    ratios = calculate_ratios
+    ratios.min
+  end
+
+  private
+
+  def calculate_ratios
+    ratios = []
+    @pantry.each_pair do |key, value|
+      @recipe.each_pair do |ingredient, amount|
+        if key == ingredient
+          ratios << value / amount
+        end
+      end
+    end
+
+    ratios
   end
 end
 
 recipe = { "flour" => 300, "sugar" => 200, "eggs" => 2 }
-pantry = { "flour" => 500, "sugar" => 200, "eggs" => 3, "milk" => 1 }
+pantry = { "flour" => 2000, "sugar" => 400, "eggs" => 5, "milk" => 1 }
 
 calculate_baking = CalculateBaking.new(recipe, pantry)
 
 puts calculate_baking.have_all_ingredients?
 puts calculate_baking.have_necessary_amounts?
+puts calculate_baking.number_of_cakes
