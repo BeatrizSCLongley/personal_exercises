@@ -9,6 +9,9 @@
 # and return the lowest number 
 
 # HOW TO IMPROVE THE CODE / WHAT TO DO NEXT
+# - do we need all these methods?
+# - should we remove unecessary elements from pantry?
+# - should we save the ingredient(s) missing so we can provide a better sring
 
 class CalculateBaking
   def initialize(recipe, pantry)
