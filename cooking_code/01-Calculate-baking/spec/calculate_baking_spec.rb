@@ -7,7 +7,7 @@ describe 'CalculateBaking' do
   let(:full_pantry) { { 'flour' => 2000, 'sugar' => 400, 'eggs' => 5, 'milk' => 1 } }
   let(:low_pantry) { { 'flour' => 100, 'sugar' => 100, 'eggs' => 1 } }
   let(:empty_pantry) { {} }
-  let(:pantry_is_empty_message) { 'Your pantry is empty' }
+  let(:empty_pantry_message) { 'Your pantry is empty' }
   let(:missing_ingredient_message) { 'You are missing some ingredients' }
 
   context 'When we have enough ingredients in our pantry' do
@@ -71,7 +71,7 @@ describe 'CalculateBaking' do
 
     describe '#number_of_cakes' do
       it 'returns an error message' do
-        expect(calculate_baking.number_of_cakes).to eq pantry_is_empty_message
+        expect(calculate_baking.number_of_cakes).to eq empty_pantry_message
       end
     end
   end

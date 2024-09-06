@@ -2,8 +2,7 @@
 
 # program that takes a recipe hash of ingredients and their amounts
 # and a pantry hash of ingredients available with their amounts
-# return an integer of how many 'cakes' you can bake with the given
-# available & necessary amounts
+# return an integer of how many 'cakes' you can bake
 class CalculateBaking
   def initialize(recipe, pantry)
     @recipe = recipe
