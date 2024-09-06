@@ -7,8 +7,6 @@ describe CalculateBaking do
   let(:full_pantry) { { 'flour' => 2000, 'sugar' => 400, 'eggs' => 5, 'milk' => 1 } }
   let(:low_pantry) { { 'flour' => 100, 'sugar' => 100, 'eggs' => 1 } }
   let(:empty_pantry) { {} }
-  let(:empty_pantry_message) { 'Your pantry is empty' }
-  let(:missing_ingredient_message) { 'You are missing some ingredients' }
 
   context 'When we have enough ingredients in our pantry' do
     let(:calculate_baking) { described_class.new(recipe, full_pantry) }
@@ -34,6 +32,7 @@ describe CalculateBaking do
 
   context 'When we don\'t have enough ingredients in our pantry' do
     let(:calculate_baking) { described_class.new(recipe, low_pantry) }
+    let(:missing_ingredient_message) { 'You are missing some ingredients' }
 
     describe '#have_all_ingredients?' do
       it 'returns true' do
@@ -56,6 +55,7 @@ describe CalculateBaking do
 
   context 'When we don\'t have any ingredients' do
     let(:calculate_baking) { described_class.new(recipe, empty_pantry) }
+    let(:empty_pantry_message) { 'Your pantry is empty' }
 
     describe '#have_all_ingredients?' do
       it 'returns true' do
