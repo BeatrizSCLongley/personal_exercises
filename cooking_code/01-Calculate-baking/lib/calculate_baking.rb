@@ -1,5 +1,7 @@
 # frozen_string_literal: true
 
+require_relative 'compare_ingredients'
+
 # program that takes a recipe hash of ingredients and their amounts
 # and a pantry hash of ingredients available with their amounts
 # return an integer of how many 'cakes' you can bake
@@ -7,35 +9,13 @@ class CalculateBaking
   def initialize(recipe, pantry)
     @recipe = recipe
     @pantry = pantry
-    @number_necessary_ingredients = recipe.size
-  end
-
-  def all_ingredients?
-    count = 0
-    @pantry.each_key do |key|
-      @recipe.each_key { |k| count += 1 if key == k }
-    end
-
-    count == @number_necessary_ingredients
-  end
-
-  def necessary_amounts?
-    count = 0
-    @pantry.each_pair do |key, value|
-      @recipe.each_pair do |ingredient, amount|
-        if key == ingredient
-          count += 1 if value >= amount
-        end
-      end
-    end
-
-    count == @number_necessary_ingredients
   end
 
   def number_of_cakes
     return 'Your pantry is empty' if @pantry.empty?
 
-    return 'You are missing some ingredients' unless all_ingredients? && necessary_amounts?
+    @compare_ingredients = CompareIngredients.new(@recipe, @pantry)
+    return 'You are missing some ingredients' unless @compare_ingredients.all_ingredients?
 
     ratios = calculate_ratios
     ratios.min
