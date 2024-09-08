@@ -3,17 +3,15 @@
 require 'calculate_baking'
 require 'compare_ingredients'
 
-describe 'CalculateBaking' do
+describe CalculateBaking do
   let(:recipe) { { 'flour' => 300, 'sugar' => 200, 'eggs' => 2 } }
   let(:full_pantry) { { 'flour' => 2000, 'sugar' => 400, 'eggs' => 5, 'milk' => 1 } }
   let(:low_pantry) { { 'flour' => 100, 'sugar' => 100, 'eggs' => 1 } }
   let(:empty_pantry) { {} }
-  let(:empty_pantry_message) { 'Your pantry is empty' }
-  let(:missing_ingredient_message) { 'You are missing some ingredients' }
   let(:compare_ingredients) { CompareIngredients }
 
   context 'When we have enough ingredients in our pantry' do
-    let(:calculate_baking) { CalculateBaking.new(recipe, full_pantry) }
+    let(:calculate_baking) { described_class.new(recipe, full_pantry) }
     let(:comparison_instance) { compare_ingredients.new(recipe, full_pantry) }
 
     before do
@@ -38,8 +36,9 @@ describe 'CalculateBaking' do
   end
 
   context 'When we don\'t have enough ingredients in our pantry' do
-    let(:calculate_baking) { CalculateBaking.new(recipe, low_pantry) }
+    let(:calculate_baking) { described_class.new(recipe, low_pantry) }
     let(:comparison_instance) { compare_ingredients.new(recipe, low_pantry) }
+    let(:missing_ingredient_message) { 'You are missing some ingredients' }
 
     before do
       allow(compare_ingredients).to receive(:new).and_call_original
@@ -63,7 +62,8 @@ describe 'CalculateBaking' do
   end
 
   context 'When we don\'t have any ingredients in our pantry' do
-    let(:calculate_baking) { CalculateBaking.new(recipe, empty_pantry) }
+    let(:calculate_baking) { described_class.new(recipe, empty_pantry) }
+    let(:empty_pantry_message) { 'Your pantry is empty' }
 
     describe '#number_of_cakes' do
       it 'returns an error message' do
